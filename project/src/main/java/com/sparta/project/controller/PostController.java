@@ -1,51 +1,45 @@
 package com.sparta.project.controller;
 
-import com.sparta.project.domain.*;
+import com.sparta.project.dto.ResponseDto;
+import com.sparta.project.dto.PostRequestDto;
 import com.sparta.project.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
 public class PostController {
 
-    private final PostRepository postRepository;
     private final PostService postService;
 
-    @GetMapping("/api/posts")// 전체 게시글 목록 조회 완료
-    public List<AllPost> getPost() {
-
-        return postRepository.findAllByOrderByModifiedAtDesc();
-    }
-    @PostMapping("/api/posts") // 게시글 작성 완료
-    public Post createPost(@RequestBody PostRequestDto requestDto) {
-        Post post = new Post(requestDto);
-        return postRepository.save(post);
+    @PostMapping("/api/post")
+    public ResponseDto<?> createPost(@RequestBody PostRequestDto requestDto) {
+        return postService.createPost(requestDto);
     }
 
-    @GetMapping("/api/posts/{id}") // 게시글 조회
-    public Optional<Post> getPost(@PathVariable Long id) {
-
-        return  postRepository.findById(id);
-    }
-    @PostMapping("/api/posts/{id}")// 비밀번호 검증
-    public Long joinPassword(@PathVariable Long id, @RequestBody PasswordDto passwordDto) {
-        postService.checkPassword(id,passwordDto);
-        return id;
+    @GetMapping("/api/post/{id}") // 게시글 상세 조회
+    public ResponseDto<?> getPost(@PathVariable Long id) {
+        return postService.getPost(id);
     }
 
-    @PutMapping("/api/posts/{id}") //게시글 수정 완료
-    public Long updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
-        postService.update(id, requestDto);
-        return id;
+    @GetMapping("/api/post") // 전체 조회
+    public ResponseDto<?> getAllPosts() {
+        return postService.getAllPost();
     }
 
-    @DeleteMapping("/api/posts/{id}") // 게시글 삭제 완료
-    public Long deletePost(@PathVariable Long id) {
-        postRepository.deleteById(id);
-        return id;
+    @PutMapping("/api/post/{id}")
+    public ResponseDto<?> updatePost(@PathVariable Long id, @RequestBody PostRequestDto postRequestDto) {
+        return postService.updatePost(id, postRequestDto);
     }
+
+    @DeleteMapping("/api/post/{id}")
+    public ResponseDto<?> deletePost(@PathVariable Long id) {
+        return postService.deletePost(id);
+    }
+
+    @PostMapping("/api/post/{id}")
+    public ResponseDto<?> validateAuthorByPassword(@PathVariable Long id, @RequestBody String password) {
+        return postService.validateAuthorByPassword(id, password);
+    }
+
 }

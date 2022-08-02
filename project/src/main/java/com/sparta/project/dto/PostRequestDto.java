@@ -1,12 +1,14 @@
-package com.sparta.project.domain;
+package com.sparta.project.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class PostRequestDto {
 
     private String title;
     private String author;
     private String content;
-    private int password;
+    private String password;
 }

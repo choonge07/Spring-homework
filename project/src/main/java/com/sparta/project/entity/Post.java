@@ -1,15 +1,17 @@
-package com.sparta.project.domain;
+package com.sparta.project.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sparta.project.dto.PostRequestDto;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor // 자동 생성자
+@AllArgsConstructor
 @Getter
 @Entity // 테이블로 인식
 public class Post extends Timestamped {
@@ -18,15 +20,16 @@ public class Post extends Timestamped {
     @Id
     @JsonIgnore
     private Long id ;
-    @Column
+    @Column(nullable = false)
     private String title;
-    @Column
+    @Column(nullable = false)
     private String author;
-    @Column
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
-    @Column
+    @Column(nullable = false)
     @JsonIgnore
-    private int password;
+    private String password;
+
     @CreatedDate
     LocalDateTime createAt;
 
