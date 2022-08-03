@@ -1,5 +1,6 @@
 package com.sparta.project.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Entity(name = "users")
 public class User {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
@@ -22,8 +23,13 @@ public class User {
     @Column(nullable = false, unique = true)
     private String password;
 
-    public User(String nickname, String password) {
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
+
+    @Builder
+    public User(String nickname, String password, Authority authority) {
         this.nickname = nickname;
         this.password = password;
+        this.authority = authority;
     }
 }

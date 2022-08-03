@@ -12,7 +12,7 @@ public class PostController {
 
     private final PostService postService;
 
-    @PostMapping("/api/post")
+    @PostMapping("/api/post") // 게시글 작성
     public ResponseDto<?> createPost(@RequestBody PostRequestDto requestDto) {
         return postService.createPost(requestDto);
     }
@@ -27,17 +27,17 @@ public class PostController {
         return postService.getAllPost();
     }
 
-    @PutMapping("/api/post/{id}")
+    @PutMapping("/api/post/{id}") //포스트 수정
     public ResponseDto<?> updatePost(@PathVariable Long id, @RequestBody PostRequestDto postRequestDto) {
         return postService.updatePost(id, postRequestDto);
     }
 
-    @DeleteMapping("/api/post/{id}")
+    @DeleteMapping("/api/post/{id}") //게시글 삭제
     public ResponseDto<?> deletePost(@PathVariable Long id) {
         return postService.deletePost(id);
     }
 
-    @PostMapping("/api/post/{id}")
+    @PostMapping("/api/post/{id}") //
     public ResponseDto<?> validateAuthorByPassword(@PathVariable Long id, @RequestBody String password) {
         return postService.validateAuthorByPassword(id, password);
     }

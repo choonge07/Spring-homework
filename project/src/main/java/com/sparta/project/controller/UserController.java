@@ -1,35 +1,23 @@
 package com.sparta.project.controller;
-import com.sparta.project.dto.SignupRequestDto;
+import com.sparta.project.dto.UserResponseDto;
 import com.sparta.project.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/user")
 public class UserController {
     private final UserService userService;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    @GetMapping("/me")
+    public ResponseEntity<UserResponseDto> getMyUserInfo() {
+        return ResponseEntity.ok(userService.getMyInfo());
     }
 
-    // 회원 로그인 페이지
-    @GetMapping("/user/login")
-    public String login() {
-        return "login";
-    }
-    // 회원 가입 페이지
-    @GetMapping("/user/signup")
-    public String signup() {
-        return "signup";
-    }
-
-    // 회원 가입 요청 처리
-    @PostMapping("/user/signup")
-    public String registerUser(SignupRequestDto requestDto) {
-        userService.registerUser(requestDto);
-        return "redirect:/user/login";
+    @GetMapping("/{nickname}")
+    public ResponseEntity<UserResponseDto> getUserInfo(@PathVariable String nickname) {
+        return ResponseEntity.ok(userService.getUserInfo(nickname));
     }
 }
