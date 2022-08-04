@@ -70,45 +70,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider));
     }
-
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        //h2-console 사용에 대한 허용 (CSRF, FrameOptions 무시)
-//        return (web) -> web.ignoring()
-//                .antMatchers("/h2-console/**");
-//    }
-
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//
-//        // 회원 관리 처리 API (POST / user/**)에 대해 CSRF 무시
-//        http.csrf()
-//                .ignoringAntMatchers("/user/**");
-//
-//        http
-//                .authorizeHttpRequests((authz) -> authz
-//                        // 회원 관리 처리 API 전부를 login 없이 허용
-//                        .antMatchers("/user/**").permitAll()
-//                                // 어떤 요청이든 '인증'
-//                        .anyRequest().authenticated()
-//                )
-//
-//                // 로그인 기능 허용
-//                .formLogin()
-//                // 로그인 Vied 제공
-//                .loginPage("/user/login")
-//                // 로그인 처리 후 성공 시 URL
-//                .defaultSuccessUrl("/")
-//                // 로그인 처리 후 실패 시 URL
-//                .failureUrl("/user/login?error")
-//                .permitAll()
-//                .and()
-//                //로그아웃 기능 허용
-//                .logout()
-//                // 로그아웃 처리 URL
-//                .logoutUrl("/user/logout")
-//                .permitAll();
-//
-//        return http.build();
-//    }
 }

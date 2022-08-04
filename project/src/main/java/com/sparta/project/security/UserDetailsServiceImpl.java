@@ -2,13 +2,17 @@
 //
 //import com.sparta.project.entity.User;
 //import com.sparta.project.repository.UserRepository;
+//import lombok.RequiredArgsConstructor;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.userdetails.UserDetailsService;
 //import org.springframework.security.core.userdetails.UsernameNotFoundException;
 //import org.springframework.stereotype.Service;
 //
+//import javax.transaction.Transactional;
+//
 //@Service
+//@RequiredArgsConstructor
 //public class UserDetailsServiceImpl implements UserDetailsService {
 //    private final UserRepository userRepository;
 //

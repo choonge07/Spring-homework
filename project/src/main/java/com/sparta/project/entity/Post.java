@@ -1,4 +1,4 @@
-package com.sparta.project.entity;
+package com.sparta.project.entity; //닉네임 중복 구현하기
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sparta.project.dto.PostRequestDto;
@@ -9,6 +9,10 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import static javax.persistence.FetchType.*;
 
 @NoArgsConstructor // 자동 생성자
 @AllArgsConstructor
@@ -19,7 +23,9 @@ public class Post extends Timestamped {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @JsonIgnore
+    @Column(name = "post_id")
     private Long id ;
+
     @Column(nullable = false)
     private String title;
     @Column(nullable = false)
@@ -32,6 +38,13 @@ public class Post extends Timestamped {
 
     @CreatedDate
     LocalDateTime createAt;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
 
     public Post (PostRequestDto requestDto) {
         this.title = requestDto.getTitle();

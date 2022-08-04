@@ -2,6 +2,7 @@ package com.sparta.project.service;
 
 import com.sparta.project.dto.ResponseDto;
 import com.sparta.project.entity.Post;
+import com.sparta.project.entity.User;
 import com.sparta.project.repository.PostRepository;
 import com.sparta.project.dto.PostRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -78,7 +79,6 @@ public class PostService {
         if (optionalPost.isEmpty()) {
             return ResponseDto.fail("NOT_FOUND", "post id is not exist");
         }
-
         Post post = optionalPost.get();
 
         if (post.getPassword().equals(password)) {

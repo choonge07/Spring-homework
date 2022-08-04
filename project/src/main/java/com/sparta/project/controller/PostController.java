@@ -2,6 +2,7 @@ package com.sparta.project.controller;
 
 import com.sparta.project.dto.ResponseDto;
 import com.sparta.project.dto.PostRequestDto;
+import com.sparta.project.entity.User;
 import com.sparta.project.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
